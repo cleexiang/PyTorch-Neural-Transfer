@@ -222,6 +222,10 @@ def run_style_transfer(cnn, normalization_mean, normalization_std,
 def main():
   style_img = image_loader("style1.jpg")
   content_img = image_loader("content1.jpg")
+  input_img = content_img.clone()
+  # if you want to use white noise instead uncomment the below line:
+  # input_img = torch.randn(content_img.data.size(), device=device)
+
   print(style_img.size())
   print(content_img.size())
   assert style_img.size() == content_img.size()
