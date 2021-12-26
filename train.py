@@ -13,7 +13,7 @@ import copy
 
 # drive.mount('/content/drive')
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-imsize = 512 if torch.cuda.is_available() else 128
+imsize = 512 if torch.cuda.is_available() else 512
 
 loader = transforms.Compose([
                              transforms.Resize(imsize),
@@ -239,6 +239,10 @@ def main():
 
   output = run_style_transfer(cnn, cnn_normalization_mean, cnn_normalization_std,
                               content_img, style_img, input_img)
+  output = output.squeeze()
+  print(output.shape)
+  output_img = transforms.ToPILImage()(output)
+  output_img.save("output.jpg")
   plt.figure()
   imshow(output, title='Output Image')
 
