@@ -19,6 +19,8 @@ loader = transforms.Compose([
                              transforms.Resize(imsize),
                              transforms.ToTensor()])
 
+unloader = transforms.ToPILImage()
+
 def image_loader(image_name):
   image = Image.open(image_name)
   image = loader(image).unsqueeze(0)
@@ -229,7 +231,6 @@ def main():
   print(style_img.size())
   print(content_img.size())
   assert style_img.size() == content_img.size()
-  unloader = transforms.ToPILImage()
   plt.ion()
 
   cnn = models.vgg19(pretrained=True).features.to(device).eval()
